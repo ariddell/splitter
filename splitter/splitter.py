@@ -102,13 +102,13 @@ def splitter(filename, output_dir, n_words, preserve_sentences):
     logging.info("Split {} into {} files. Saved to {}".format(filename, len(chunks), output_dir))
 
 
-if __name__ == "__main__":
+def main():
     parser = argparse.ArgumentParser(description='Split text into parts.')
-    parser.add_argument('n_words', type=int, help='Each part has this many words')
     parser.add_argument('input_filename', type=str, help='Input text filename')
     parser.add_argument('output_dir', type=str, help='Output directory')
-    parser.add_argument('--preserve-sentences', type=bool, default=False,
-                        store_true=True, help='Try to preserve sentences')
+    parser.add_argument('n_words', type=int, help='Each part has this many words')
+    parser.add_argument('--preserve-sentences', action='store_true',
+                        help='Try to preserve sentences')
     args = parser.parse_args()
     filename = args.input_filename
     output_dir = args.output_dir
@@ -116,3 +116,7 @@ if __name__ == "__main__":
     preserve_sentences = args.preserve_sentences
 
     splitter(filename, output_dir, n_words, preserve_sentences)
+
+
+if __name__ == "__main__":
+    main()
