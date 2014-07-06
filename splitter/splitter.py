@@ -15,7 +15,7 @@ import re
 
 logger = logging.getLogger('splitter')
 
-_SENT_RE = re.compile(r'[^\.。]*[\.。]\s*')
+_SENT_RE = re.compile(r'[^\.;。]*[\.;。]\s*')
 _TOKEN_RE = re.compile(r'\s*\S+\s*')
 
 
@@ -25,9 +25,9 @@ def _tokenize(s):
 
 
 def _sent_tokenize(s):
-    """Split string into sentences delimited by periods.
+    """Split string into sentences delimited by periods or semicolons.
 
-    Delimiters are not captured. Matches CJK period as well as ASCII period.
+    Delimiters are not captured. Matches CJK period as well as ASCII periods.
     """
     return _SENT_RE.findall(s)
 
