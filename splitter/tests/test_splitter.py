@@ -76,7 +76,8 @@ class TestSplitter(base.TestCase):
         output_dir = tempfile.mkdtemp()
         n_words = 1000
         preserve_sentences = False
-        splitter.splitter(filename, output_dir, n_words, preserve_sentences)
+        suffix_length = 3
+        splitter.splitter(filename, output_dir, n_words, preserve_sentences, suffix_length)
         self.assertEqual(len(os.listdir(output_dir)), 16)
         chunks = []
         for fn in sorted(os.listdir(output_dir)):
@@ -88,7 +89,8 @@ class TestSplitter(base.TestCase):
         output_dir = tempfile.mkdtemp()
         n_words = 1000
         preserve_sentences = False
-        splitter.splitter(filename, output_dir, n_words, preserve_sentences)
+        suffix_length = 3
+        splitter.splitter(filename, output_dir, n_words, preserve_sentences, suffix_length)
         self.assertEqual(len(os.listdir(output_dir)), 6)
         chunks = []
         for fn in sorted(os.listdir(output_dir)):
@@ -121,7 +123,8 @@ class TestSplitter(base.TestCase):
         output_dir = tempfile.mkdtemp()
         n_words = 1000
         preserve_sentences = True
-        splitter.splitter(filename, output_dir, n_words, preserve_sentences)
+        suffix_length = 3
+        splitter.splitter(filename, output_dir, n_words, preserve_sentences, suffix_length)
         self.assertEqual(len(os.listdir(output_dir)), 16)
         chunks = []
         for fn in sorted(os.listdir(output_dir)):
@@ -133,7 +136,8 @@ class TestSplitter(base.TestCase):
         output_dir = tempfile.mkdtemp()
         n_words = 1000
         preserve_sentences = True
-        splitter.splitter(filename, output_dir, n_words, preserve_sentences)
+        suffix_length = 3
+        splitter.splitter(filename, output_dir, n_words, preserve_sentences, suffix_length)
         self.assertEqual(len(os.listdir(output_dir)), 6)
         chunks = []
         for fn in sorted(os.listdir(output_dir)):

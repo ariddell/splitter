@@ -9,7 +9,6 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 
 import argparse
 import logging
-import math
 import os
 import re
 
@@ -80,7 +79,7 @@ def _split(text, n_words):
     return chunks
 
 
-def splitter(filename, output_dir, n_words, preserve_sentences):
+def splitter(filename, output_dir, n_words, preserve_sentences, suffix_length):
     """Splits text and writes parts to files."""
     text = open(filename, 'r').read()
     filename_base, filename_ext = os.path.splitext(os.path.basename(filename))
@@ -93,8 +92,7 @@ def splitter(filename, output_dir, n_words, preserve_sentences):
     # chunk. Python has a couple of standard ways of doing this that should
     # be familiar from other programming languages. For example,
     # "{:04d}".format(2) => "0002"
-    n_pad_digits = int(math.log10(len(chunks))) + 1
-    chunk_filename_template = "{{}}_split{{:0{}d}}{{}}".format(n_pad_digits)
+    chunk_filename_template = "{{}}_split{{:0{}d}}{{}}".format(suffix_length)
     for i, chunk in enumerate(chunks):
         chunk_filename = chunk_filename_template.format(filename_base, i, filename_ext)
         with open(os.path.join(output_dir, chunk_filename), 'w') as f:
@@ -109,13 +107,17 @@ def main():
     parser.add_argument('n_words', type=int, help='Each part has this many words')
     parser.add_argument('--preserve-sentences', action='store_true',
                         help='Try to preserve sentences')
+    parser.add_argument('--suffix-length', type=int, default=3,
+                        help='Generate suffixes of this length')
+
     args = parser.parse_args()
     filename = args.input_filename
     output_dir = args.output_dir
     n_words = args.n_words
     preserve_sentences = args.preserve_sentences
+    suffix_length = args.suffix_length
 
-    splitter(filename, output_dir, n_words, preserve_sentences)
+    splitter(filename, output_dir, n_words, preserve_sentences, suffix_length)
 
 
 if __name__ == "__main__":
